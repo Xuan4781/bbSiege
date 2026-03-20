@@ -35,6 +35,9 @@ public class Health : MonoBehaviour
 
     void Die()
     {
+        if (gameManager != null){
+            gameManager.GameOver();
+        } 
         Destroy(gameObject);
     }
 
