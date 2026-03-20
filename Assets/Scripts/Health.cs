@@ -1,14 +1,26 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Health : MonoBehaviour
 {
 
     public float maxHealth = 100;
     public float currentHealth;
+
+    public Slider healthBar;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         currentHealth = maxHealth;
+        if (healthBar != null)
+            healthBar.maxValue = maxHealth;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (healthBar != null)
+            healthBar.value = currentHealth;
     }
 
     public void TakeDamage(float dmg)
@@ -17,13 +29,14 @@ public class Health : MonoBehaviour
 
         if (currentHealth <= 0)
         {
-            Destroy(gameObject);
+            Die();
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    void Die()
     {
-        
+        Destroy(gameObject);
     }
+
+    
 }
