@@ -28,6 +28,10 @@ public class PlayerShoot : MonoBehaviour
         Vector3 direction = (mousePos - transform.position).normalized;
 
         GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
-        bullet.GetComponent<Rigidbody>().linearVelocity = direction * bulletSpeed;
+
+        Rigidbody rb = bullet.GetComponent<Rigidbody>();
+        rb.linearVelocity = direction * bulletSpeed;
+
+        Physics.IgnoreCollision(bullet.GetComponent<Collider>(), GetComponent<Collider>());
     }
 }
