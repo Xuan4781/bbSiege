@@ -297,6 +297,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25f5d31fc3e074b41baa7d6ab2d46d32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyController
+  bulletPrefab: {fileID: 5061633938488579873, guid: 73504696c83f20f428cd684ccd4b9c4c, type: 3}
+  shootRate: 2
+  bulletSpeed: 8
 --- !u!114 &2323461013601006889
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -309,6 +312,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d1a2dfdd16e72449b118f4680748c85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Health
+  gameManager: {fileID: 0}
   maxHealth: 100
   currentHealth: 0
   healthBar: {fileID: 4056817628478124135}
