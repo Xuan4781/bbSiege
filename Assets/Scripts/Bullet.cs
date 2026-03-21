@@ -3,28 +3,28 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     public float damage = 25f;
+    public string ownerTag;
 
      void OnCollisionEnter(Collision collision)
     {
-        Health h = collision.gameObject.GetComponent<Health>();
+        GameObject hit = collision.gameObject;
+        Debug.Log("Bullet hit: " + hit.name);
+       
+        if (ownerTag == "Player" && hit.CompareTag("Base"))
+        {
+            Destroy(gameObject);
+            return;
+        }
 
+        Health h = hit.GetComponentInParent<Health>();
+        Debug.Log("Health found = " + (h != null));
         if (h != null)
         {
+            Debug.Log(hit.name + " took damage: " + damage);
             h.TakeDamage(damage);
         }
 
         Destroy(gameObject);
     }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        Destroy(gameObject, 5f);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

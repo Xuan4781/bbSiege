@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 4600135493707604072}
   m_Layer: 0
   m_Name: BubbleBullet
-  m_TagString: Untagged
+  m_TagString: PlayerBullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -153,4 +153,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebabef91989a170449c8c0b297456179, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Bullet
-  damage: 25
+  damage: 50
+  ownerTag: 

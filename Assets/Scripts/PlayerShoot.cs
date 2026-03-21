@@ -28,7 +28,7 @@ public class PlayerShoot : MonoBehaviour
         Vector3 direction = (mousePos - transform.position).normalized;
 
         GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
-
+        bullet.GetComponent<Bullet>().ownerTag = "Player";
         Rigidbody rb = bullet.GetComponent<Rigidbody>();
         rb.linearVelocity = direction * bulletSpeed;
 

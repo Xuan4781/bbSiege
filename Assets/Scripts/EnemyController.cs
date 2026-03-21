@@ -5,11 +5,15 @@ public class EnemyController : MonoBehaviour
 {
     NavMeshAgent agent;
     Transform player;
+    Transform baseTarget;
 
     public GameObject bulletPrefab;
     public float shootRate = 2f;
     public float bulletSpeed = 8f;
     float shootTimer;
+
+    public float detectRange = 5f;
+    Transform target;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -21,17 +25,24 @@ public class EnemyController : MonoBehaviour
         {
             player = playerObj.transform;
         }
-        else
+         GameObject baseObj = GameObject.FindGameObjectWithTag("Base");
+        if (baseObj != null)
         {
-            Debug.LogError("Player not found! Make sure it's tagged 'Player'");
+            baseTarget = baseObj.transform;
         }
+            
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (player == null) return;
-        agent.SetDestination(player.position);
+        if (player == null|| baseTarget == null) return;
+
+        // decide target
+        float distanceToPlayer = Vector3.Distance(transform.position, player.position);
+        target = (distanceToPlayer < detectRange) ? player : baseTarget;
+        
+        agent.SetDestination(target.position);
         // Shooting timer
         shootTimer += Time.deltaTime;
 
@@ -45,9 +56,10 @@ public class EnemyController : MonoBehaviour
     void Shoot()
     {
 
-        Vector3 direction = (player.position - transform.position).normalized;
+        Vector3 direction = (target.position - transform.position).normalized;
         Vector3 spawnPos = transform.position + Vector3.up * 1f;
         GameObject bullet = Instantiate(bulletPrefab, spawnPos, Quaternion.identity);
+        bullet.GetComponent<Bullet>().ownerTag = "Enemy";
 
         Rigidbody rb = bullet.GetComponent<Rigidbody>();
 
