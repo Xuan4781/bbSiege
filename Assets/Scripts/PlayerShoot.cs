@@ -22,16 +22,29 @@ public class PlayerShoot : MonoBehaviour
 
     void Shoot()
     {
-        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        mousePos.y = 1;
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-        Vector3 direction = (mousePos - transform.position).normalized;
+        Plane groundPlane = new Plane(Vector3.up, transform.position);
 
-        GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
-        bullet.GetComponent<Bullet>().ownerTag = "Player";
-        Rigidbody rb = bullet.GetComponent<Rigidbody>();
-        rb.linearVelocity = direction * bulletSpeed;
+        float rayDistance;
 
-        Physics.IgnoreCollision(bullet.GetComponent<Collider>(), GetComponent<Collider>());
+        if (groundPlane.Raycast(ray, out rayDistance))
+        {
+            Vector3 mouseWorldPos = ray.GetPoint(rayDistance);
+            
+            Vector3 spawnPos = transform.position + Vector3.up * 1f;
+            Vector3 targetPos = mouseWorldPos;
+            targetPos.y = 0.5f;
+
+            Vector3 direction = (targetPos - spawnPos).normalized;
+
+            GameObject bullet = Instantiate(bulletPrefab, spawnPos, Quaternion.identity);
+            bullet.GetComponent<Bullet>().ownerTag = "Player";
+
+            Rigidbody rb = bullet.GetComponent<Rigidbody>();
+            rb.linearVelocity = direction * bulletSpeed;
+
+            Physics.IgnoreCollision(bullet.GetComponent<Collider>(), GetComponent<Collider>());
+        }
     }
 }
