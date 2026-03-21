@@ -7,23 +7,38 @@ public class GameManager : MonoBehaviour
     public float survivalTime = 0f;
     public TMP_Text timerText;
 
+    public GameObject startPanel;
+    bool gameStarted = false;
+
+
     public GameObject gameOverPanel;
     public TMP_Text finalTimeText;
     public TMP_Text highScoreText;
 
     public bool isGameOver = false;
 
+    void Start()
+    {
+        Time.timeScale = 0f; 
+    }
 
     // Update is called once per frame
     void Update()
     {
-        if (isGameOver) return;
+        if (!gameStarted || isGameOver) return;
         
         survivalTime += Time.deltaTime;
 
         if (timerText != null){
             timerText.text = "Time: " + Mathf.FloorToInt(survivalTime);
         }
+    }
+
+    public void StartGame()
+    {
+        startPanel.SetActive(false);
+        gameStarted = true;
+        Time.timeScale = 1f;
     }
 
     public void GameOver()
