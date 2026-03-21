@@ -48,9 +48,11 @@ public class Health : MonoBehaviour
 
     void Die()
     {
-        if (gameManager != null){
+        if (gameObject.CompareTag("Base") && gameManager != null)
+        {
             gameManager.GameOver();
-        } 
+        }
+
         Destroy(gameObject);
     }
 
