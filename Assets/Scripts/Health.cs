@@ -6,7 +6,6 @@ public class Health : MonoBehaviour
     public GameManager gameManager;
     public float maxHealth = 100f;
     public float currentHealth;
-
     public Image healthBarFill;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -49,6 +48,11 @@ public class Health : MonoBehaviour
     void Die()
     {
         if (gameObject.CompareTag("Base") && gameManager != null)
+        {
+            gameManager.GameOver();
+        }
+
+        if (gameObject.CompareTag("Player") && gameManager != null)
         {
             gameManager.GameOver();
         }
