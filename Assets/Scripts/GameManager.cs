@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     public GameObject startPanel;
     bool gameStarted = false;
 
-
+    public EnemySpawner spawner;
     public GameObject gameOverPanel;
     public TMP_Text finalTimeText;
     public TMP_Text highScoreText;
@@ -39,6 +39,7 @@ public class GameManager : MonoBehaviour
         startPanel.SetActive(false);
         gameStarted = true;
         Time.timeScale = 1f;
+        spawner.BeginSpawning();
     }
 
     public void GameOver()

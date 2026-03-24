@@ -3,25 +3,24 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     public GameObject enemyPrefab;
-    public float spawnRate = 3f;
+    public float spawnRate = 1f;
     public float spawnRadius = 15f;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+
+    bool spawning = false;
+
+    public void BeginSpawning()
     {
-        InvokeRepeating("SpawnEnemy", 1f, spawnRate);
+        if (spawning) return;
+        spawning = true;
+
+        InvokeRepeating(nameof(SpawnEnemy), 0f, spawnRate);
     }
 
     void SpawnEnemy()
     {
-        Vector3 randomPos = Random.insideUnitSphere * spawnRadius;
-        randomPos.y = 1;
+        Vector2 random = Random.insideUnitCircle * spawnRadius;
+        Vector3 randomPos = new Vector3(random.x, 1, random.y);
 
         Instantiate(enemyPrefab, randomPos, Quaternion.identity);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

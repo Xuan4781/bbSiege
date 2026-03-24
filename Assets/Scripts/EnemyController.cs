@@ -9,7 +9,7 @@ public class EnemyController : MonoBehaviour
 
     public GameObject bulletPrefab;
     public float shootRate = 0.5f;
-    public float bulletSpeed = 8f;
+    public float bulletSpeed = 18f;
     float shootTimer;
 
     public float detectRange = 5f;
