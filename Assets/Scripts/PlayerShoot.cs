@@ -4,11 +4,13 @@ public class PlayerShoot : MonoBehaviour
 {
     public GameObject bulletPrefab;
     public float bulletSpeed = 10f;
+    public AudioClip shootSound;
+    private AudioSource audioSource;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -22,6 +24,8 @@ public class PlayerShoot : MonoBehaviour
 
     void Shoot()
     {
+        audioSource.PlayOneShot(shootSound);
+
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
         Plane groundPlane = new Plane(Vector3.up, transform.position);

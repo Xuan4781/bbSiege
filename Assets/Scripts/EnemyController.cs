@@ -8,16 +8,19 @@ public class EnemyController : MonoBehaviour
     Transform baseTarget;
 
     public GameObject bulletPrefab;
-    public float shootRate = 2f;
+    public float shootRate = 0.5f;
     public float bulletSpeed = 8f;
     float shootTimer;
 
     public float detectRange = 5f;
     Transform target;
+    public AudioClip shootSound;
+    private AudioSource audioSource;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
-    {
+    {   
+        audioSource = GetComponent<AudioSource>();
         agent = GetComponent<NavMeshAgent>();
 
         GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
@@ -55,7 +58,7 @@ public class EnemyController : MonoBehaviour
 
     void Shoot()
     {
-
+        audioSource.PlayOneShot(shootSound);
         Vector3 direction = (target.position - transform.position).normalized;
         Vector3 spawnPos = transform.position + Vector3.up * 1f;
         GameObject bullet = Instantiate(bulletPrefab, spawnPos, Quaternion.identity);
